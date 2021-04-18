@@ -18,7 +18,7 @@ Hugo ships with several [Built-in Shortcodes](https://gohugo.io/content-manageme
 <!-- See https://github.com/gohugoio/hugo/issues/7866
 ## Instagram Shortcode Simple
 
-{{/\*< instagram BGvuInzyFAe hidecaption >\*/}}
+{{/\\\*< instagram BGvuInzyFAe hidecaption >\\\*/}}
 
 <br>
 -->
@@ -26,6 +26,8 @@ Hugo ships with several [Built-in Shortcodes](https://gohugo.io/content-manageme
 - - -
 
 ## YouTube Privacy Enhanced Shortcode
+
+***If you want youtube on your site***
 
 {{< youtube ZJthWmvUzzc >}}
 
