@@ -11,20 +11,19 @@ images:
     alt: Fox
     stretch: Vertical
 ---
+Hugo ships with several [Built-in Shortcodes](https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes) for rich content, along with a [Privacy Config](https://gohugo.io/about/hugo-and-gdpr/) and a set of Simple Shortcodes that enable static and non-JS versions of various social media embeds. 
 
-Hugo ships with several [Built-in Shortcodes](https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes) for rich content, along with a [Privacy Config](https://gohugo.io/about/hugo-and-gdpr/) and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.
-<!--more-->
----
+## <!--more-->
 
 <!-- See https://github.com/gohugoio/hugo/issues/7866
 ## Instagram Shortcode Simple
 
-{{/*< instagram BGvuInzyFAe hidecaption >*/}}
+{{/\*< instagram BGvuInzyFAe hidecaption >\*/}}
 
 <br>
 -->
 
----
+- - -
 
 ## YouTube Privacy Enhanced Shortcode
 
@@ -32,7 +31,7 @@ Hugo ships with several [Built-in Shortcodes](https://gohugo.io/content-manageme
 
 <br>
 
----
+- - -
 
 ## Twitter Simple Shortcode
 
@@ -40,7 +39,7 @@ Hugo ships with several [Built-in Shortcodes](https://gohugo.io/content-manageme
 
 <br>
 
----
+- - -
 
 ## Vimeo Simple Shortcode
 
