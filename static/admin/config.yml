@@ -18,7 +18,7 @@ collections: # A list of collections the CMS should be able to edit
       - { label: 'Tags', name: 'tags', widget: 'list' }
       - { label: 'Categories', name: 'categories', widget: 'list' }
       - label: 'Cover Image'
-        name: 'images'
+        name: 'cimage'
         widget: 'image'
         required: false
         tagname: ''
