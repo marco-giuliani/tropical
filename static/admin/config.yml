@@ -17,10 +17,8 @@ collections: # A list of collections the CMS should be able to edit
       - { label: 'Body', name: 'body', widget: 'markdown' }
       - { label: 'Tags', name: 'tags', widget: 'list' }
       - { label: 'Categories', name: 'categories', widget: 'list' }
-      - { label: "Featured Image",
-          name: "thumbnail",
-          widget: "image",
-          default: "/img/main/logo.jpg",
-          media_library:
-            config:
-              multiple: true }
+      - label: 'Cover Image'
+        name: 'images'
+        widget: 'image'
+        required: true
+        tagname: ''
