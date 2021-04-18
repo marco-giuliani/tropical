@@ -20,5 +20,5 @@ collections: # A list of collections the CMS should be able to edit
       - label: 'Cover Image'
         name: 'images'
         widget: 'image'
-        required: true
+        required: false
         tagname: ''
