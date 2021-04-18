@@ -2,7 +2,7 @@
 title: New Post
 date: 2021-03-10
 description: A brief description of Hugo Shortcodes
-author: Marco Giuliani
+author: Marco Giuliani.
 tags:
   - shortcodes
   - privacy
