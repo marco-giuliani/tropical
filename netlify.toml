@@ -2,11 +2,6 @@
 publish = "public"
 command = "hugo --gc --minify"
 
-[build.processing]
-  skip_processing = false
-[build.processing.images]
-  compress = true
-
 [context.production.environment]
 HUGO_VERSION = "0.74.2"
 HUGO_ENV = "production"
