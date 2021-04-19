@@ -17,3 +17,12 @@ collections: # A list of collections the CMS should be able to edit
       - { label: 'Body', name: 'body', widget: 'markdown' }
       - { label: 'Tags', name: 'tags', widget: 'list' }
       - { label: 'Categories', name: 'categories', widget: 'list' }
+      - label: 'Images'
+        name: 'images'
+        widget: 'list'
+        fields:
+          - { label: 'Source', name: 'src', widget: 'image' }
+          - { label: 'Alt Text', name: 'alt', widget: 'string' }
+          - { label: 'stretch', name: 'stretch', widget: 'string' }
+        default:
+          - { src: '/img/main/logo.jpg', alt: 'default', stretch: 'Vertical' }
