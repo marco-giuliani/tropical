@@ -7,7 +7,7 @@ tags = ["markdown", "text"]
 [[images]]
   src = "img/2019/03/pic03.jpg"
   alt = "Valley"
-  stretch = "horizontal"
+  stretch = "Vertical"
 +++
 
 Lorem est tota propiore conpellat pectoribus de
