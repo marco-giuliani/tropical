@@ -2,7 +2,7 @@
 # https://github.com/pacollins/hugo-future-imperfect-slim/wiki/config.toml
 baseurl                 = "/"
 DefaultContentLanguage  = "en"
-title                   = "Hugo Future Imperfect Slim"
+title                   = "Tropical Tech"
 theme                   = "hugo-future-imperfect-slim"
 paginate                = 3
 disqusShortname         = ""
@@ -31,8 +31,8 @@ disableLanguages        = []
   hideEmptyStats        = false
 
   [params.meta]
-    description         = "A theme by HTML5 UP, ported by Julio Pescador. Slimmed and enhanced by Patrick Collins. Multilingual by StatnMap. Powered by Hugo."
-    author              = "HTML5UP and Hugo"
+    description         = "All things technical on the Costa Tropical, Cloud Computing to crazy futuristic creations."
+    author              = "Tropical Thunder"
     favicon             = false
     svg                 = true
     faviconVersion      = "1"
@@ -40,15 +40,15 @@ disableLanguages        = []
     iOSColor            = "#ffffff"
 
   [params.header]
-    navbarTitle         = "Future Imperfect"
+    navbarTitle         = "Tropical Tech"
     dynamicTitles       = true
     searchMenu          = true
     shareMenu           = true
     languageMenu        = true
 
   [params.intro]
-    header                = "Hugo Future Imperfect Slim"
-    paragraph             = "Another fine, responsive site template by <a href='http://html5up.net'>HTML5 UP</a>."
+    header                = "Tropical Tech"
+    paragraph             = "All things tech on Costal Tropical"
     rssIntro              = true
     socialIntro           = true
     hideWhenSingleColumn  = false
@@ -58,10 +58,10 @@ disableLanguages        = []
       src                 = "img/main/logo.jpg"
       shape               = "circle"
       width               = ""
-      alt                 = "Hugo Future Imperfect Slim"
+      alt                 = "Tropical tech"
 
   [params.sidebar]
-    about               = "This theme was developed for Hugo static site generator."
+    about               = "If you need technical advice, please ask. From personal Blog to Enterprise cloud deployments."
     postAmount          = 5
     categories          = true
     categoriesByCount   = true
@@ -79,7 +79,7 @@ disableLanguages        = []
     theme               = "github-light"
 
   [params.staticman]
-    enabled             = true
+    enabled             = false
     api                 = ""  # No Trailing Slash
     gitProvider         = ""
     username            = ""
@@ -137,7 +137,7 @@ disableLanguages        = []
   [Languages.fr]
     LanguageCode        = "fr"
     LanguageName        = "Français"
-    title               = "Hugo Future Imperfect Slim en français"
+    title               = "Tropical Tech en français"
     description         = "Un thème par HTML5 UP, porté par Julio Pescador. Simplifié et amélioré par Patrick Collins. Multilingue par StatnMap. Propulsé par Hugo."
     weight              = 2
 
@@ -327,7 +327,7 @@ disableLanguages        = []
 
 [social]
   # Coding Communities
-  github                = "pacollins/hugo-future-imperfect-slim"
+  github                = "marco-giuliani"
   gitlab                = ""
   stackoverflow         = "" # User Number
   bitbucket             = ""
