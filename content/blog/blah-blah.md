@@ -2,7 +2,7 @@
 title: Blah Blah
 date: 2021-04-19T08:03:38.225Z
 description: This is a wee test
-author: Its only me
+author: Its only me.
 tags:
   - testing
   - fun
