@@ -17,10 +17,4 @@ I am testing how to ***use*** the widgets
 
 ## <!--more-->
 
-This is below the more
-
-
-
-
-
-{{< instagram CNS7YF9BdQe >}}
+This is below the more.
