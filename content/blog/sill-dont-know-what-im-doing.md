@@ -12,6 +12,6 @@ categories:
 images:
   - src: /img/main/20150617_214518.jpg
     alt: Caitlin smiling wi big glasses
-    stretch: horizontal
+    stretch: vertical
 ---
 This is my remarkable and very [handsome](https://google.com) husband, but yes he did nearly break his leg **getting down**
