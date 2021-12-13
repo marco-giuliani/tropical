@@ -5,8 +5,8 @@ window.addEventListener("DOMContentLoaded", event => {
     let queuedDoNotAddState = false;
     let origContent = null;
 
-    const form = document.getElementById("search");
-    const input = document.getElementById("search-input");
+    const form = document.getElementById("lunr-search");
+    const input = document.getElementById("lunr-search-input");
     form.addEventListener("submit", function(event) {
         event.preventDefault();
 
