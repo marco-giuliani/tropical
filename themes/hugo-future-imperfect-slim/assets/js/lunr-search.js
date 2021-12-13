@@ -10,7 +10,7 @@ window.addEventListener("DOMContentLoaded", function(event)
   form.addEventListener("submit", function(event)
   {
     event.preventDefault();
-
+    console.log("submit");
     var term = input.value.trim();
     if (!term)
       return;
@@ -22,6 +22,7 @@ window.addEventListener("DOMContentLoaded", function(event)
   {
     // Start icon animation.
     form.setAttribute("data-running", "true");
+    console.log("running");
 
     if (index)
     {
@@ -80,6 +81,8 @@ window.addEventListener("DOMContentLoaded", function(event)
       });
 
       // Search index is ready, perform the search now
+      
+    console.log("now ready to search");
       search(queuedTerm);
     }, false);
     request.addEventListener("error", searchDone, false);
@@ -100,7 +103,8 @@ window.addEventListener("DOMContentLoaded", function(event)
     title.id = "search-results";
     title.className = "list-title";
 
-    if (results.length == 0)
+    if (results.length == 0)  
+    console.log("none found");
       title.textContent = `No results found for “${term}”`;
     else if (results.length == 1)
       title.textContent = `Found one result for “${term}”`;
@@ -124,6 +128,7 @@ window.addEventListener("DOMContentLoaded", function(event)
     }
     title.scrollIntoView(true);
 
+    console.log("done");
     searchDone();
   }
 
