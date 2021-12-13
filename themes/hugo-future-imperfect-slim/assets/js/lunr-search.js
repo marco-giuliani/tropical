@@ -103,9 +103,10 @@ window.addEventListener("DOMContentLoaded", function(event)
     title.id = "search-results";
     title.className = "list-title";
 
-    if (results.length == 0)  
-    console.log("none found");
+    if (results.length == 0)  {
+      console.log("none found");
       title.textContent = `No results found for “${term}”`;
+    }
     else if (results.length == 1)
       title.textContent = `Found one result for “${term}”`;
     else
