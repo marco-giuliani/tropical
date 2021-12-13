@@ -12,6 +12,11 @@ disableLanguages        = []
 
 [markup.goldmark.renderer]
   unsafe                = true
+  
+[outputFormats]
+  [SearchIndex]
+    baseName            = "search"
+    mediaType           = "application/json"
 
 [outputs]
   home                  = ["html", "json", "rss", "SearchIndex"]
