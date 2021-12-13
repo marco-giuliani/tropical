@@ -972,6 +972,51 @@ figcaption {
   }
 }
 
+@keyframes spin {
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.lunr-search {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  min-width: 1em;
+  height: 1em;
+  line-height: 1;
+  border-radius: 0.75em;
+  padding: 0.25em;
+}
+
+.lunr-search-icon {
+  color: black;
+  cursor: pointer;
+  width: 1em;
+  height: 1em;
+  margin: 0;
+  vertical-align: bottom;
+}
+
+.search[data-running] .lunr-search-icon {
+  animation: spin 1.5s linear infinite;
+}
+
+.lunr-search-input {
+  border-width: 0;
+  padding: 0;
+  margin: 0;
+  width: 0;
+  outline: none;
+  background: transparent;
+  transition: width 0.5s;
+}
+
+.lunr-search-input:focus {
+  margin-left: 0.5em;
+  width: 10em;
+}
+
 .search-input {
   background-color: $white;
   box-shadow: $shadow-3;
