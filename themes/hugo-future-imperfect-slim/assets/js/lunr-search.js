@@ -1,196 +1,158 @@
-window.addEventListener("DOMContentLoaded", event => {
-    let index = null;
-    let lookup = null;
-    let queuedTerm = null;
-    let queuedDoNotAddState = false;
-    let origContent = null;
+window.addEventListener("DOMContentLoaded", function(event)
+{
+  var index = null;
+  var lookup = null;
+  var queuedTerm = null;
 
-    const form = document.getElementById("lunr-search");
-    const input = document.getElementById("lunr-search-input");
-    form.addEventListener("submit", function(event) {
-        event.preventDefault();
+  var form = document.getElementById("lunr-search");
+  var input = document.getElementById("lunr-search-input");
 
-        let term = input.value.trim();
-        if (!term) {
-            return;
-        }
-        startSearch(term, false);
-    }, false);
+  form.addEventListener("submit", function(event)
+  {
+    event.preventDefault();
 
-    if (history.state && history.state.type == "search") {
-        startSearch(history.state.term, true);
-    }
+    var term = input.value.trim();
+    if (!term)
+      return;
 
-    window.addEventListener("popstate", function(event) {
-        if (event.state && event.state.type == "search") {
-            startSearch(event.state.term, true);
-        }
-        else if (!event.state && origContent) {
-            let target = document.querySelector(".main-inner");
-            while (target.firstChild) {
-                target.removeChild(target.firstChild);
-            }
+    startSearch(term);
+  }, false);
 
-            for (let node of origContent) {
-                target.appendChild(node);
-            }
-            origContent = null;
-        }
-    }, false);
+  function startSearch(term)
+  {
+    // Start icon animation.
+    form.setAttribute("data-running", "true");
 
-    function startSearch(term, doNotAddState) {
-        input.value = term;
-        form.setAttribute("data-running", "true");
-        if (index) {
-            search(term, doNotAddState);
-        }
-        else if (queuedTerm) {
-            queuedTerm = term;
-            queuedDoNotAddState = doNotAddState;
-        }
-        else {
-            queuedTerm = term;
-            queuedDoNotAddState = doNotAddState;
-            initIndex();
-        }
-    }
-
-    function searchDone() {
-        form.removeAttribute("data-running");
-
-        // A magic trick to make search field loses focus on mobile,
-        // which prevents the virtual keyboard from popping up.
-        const header = document.querySelector('.header');
-        if (header && header.classList.contains('fade')) {
-            input.blur();
-        }
-
-        queuedTerm = null;
-        queuedDoNotAddState = false;
-    }
-
-    function initIndex() {
-        let request = new XMLHttpRequest();
-        request.open("GET", "{{ partial "utils/relative-url.html" (dict "$" . "filename" (((.Site.GetPage "").OutputFormats.Get "SearchIndex").RelPermalink | strings.TrimPrefix "/")) }}");
-        request.responseType = "json";
-        request.addEventListener("load", function(event) {
-            let documents = request.response;
-            if (!documents)
-            {
-                console.error("Search index could not be downloaded, was it generated?");
-                searchDone();
-                return;
-            }
-
-            lookup = {};
-            index = lunr(function() {
-                const language = "{{ .Site.Language.Lang }}";
-                if (language != "en" && lunr.hasOwnProperty(language)) {
-                    this.use(lunr[language]);
-                }
-
-                this.ref("uri");
-                this.field("title");
-                this.field("subtitle");
-                this.field("content");
-                this.field("description");
-                this.field("categories");
-                this.field("tags");
-
-                for (let document of documents) {
-                    this.add(document);
-                    lookup[document.uri] = document;
-                }
-            });
-
-            search(queuedTerm, queuedDoNotAddState);
-        }, false);
-        request.addEventListener("error", searchDone, false);
-        request.send(null);
-    }
-
-    function search(term, doNotAddState) {
-        try {
-            let results = index.search(term);
-
-            let target = document.querySelector(".main-inner");
-            let replaced = [];
-            while (target.firstChild) {
-                replaced.push(target.firstChild);
-                target.removeChild(target.firstChild);
-            }
-            if (!origContent) {
-                origContent = replaced;
-            }
-
-            let title = document.createElement("h1");
-            title.id = "search-results";
-            title.className = "list-title";
-
-            // This is an overly simple pluralization scheme, it will only work
-            // for some languages.
-            if (results.length == 0) {
-                title.textContent = "{{ i18n "searchResultsNone" (dict "Term" "{}") }}".replace("{}", term);
-            }
-            else if (results.length == 1) {
-                title.textContent = "{{ i18n "searchResultsTitle" (dict "Count" 1 "Term" "{}") }}".replace("{}", term);
-            }
-            else {
-                title.textContent = "{{ i18n "searchResultsTitle" (dict "Count" 13579 "Term" "{}") }}".replace("{}", term).replace("13579", results.length);
-            }
-            target.appendChild(title);
-            document.title = title.textContent;
-            let template = document.getElementById("lunr-search-result");
-            for (let result of results) {
-                let doc = lookup[result.ref];
-                let element = template.content.cloneNode(true);
-                element.querySelector(".summary-title-link").href = element.querySelector(".read-more-link").href = doc.uri;
-                element.querySelector(".summary-title-link").textContent = doc.title;
-                element.querySelector(".summary").textContent = truncateToEndOfSentence(doc.content, 70);
-                target.appendChild(element);
-            }
-            title.scrollIntoView(true);
-            if (!doNotAddState) {
-                history.pushState({type: "search", term: term}, title.textContent, "#search=" + encodeURIComponent(term));
-            }
-            {{ if .Site.Params.enableNavToggle }}
-                let navToggleLabel = document.querySelector('.nav-toggle');
-                if (navToggleLabel && navToggleLabel.classList.contains("open")) {
-                    document.getElementById(navToggleLabel.getAttribute("for")).click();
-                }
-            {{ end }}
-        }
-        finally {
-            searchDone();
-        }
-    }
-
-    // This matches Hugo's own summary logic:
-    // https://github.com/gohugoio/hugo/blob/b5f39d23b86f9cb83c51da9fe4abb4c19c01c3b7/helpers/content.go#L543
-    function truncateToEndOfSentence(text, minWords)
+    if (index)
     {
-        let match;
-        let result = "";
-        let wordCount = 0;
-        let regexp = /(\S+)(\s*)/g;
-        while (match = regexp.exec(text)) {
-            wordCount++;
-            if (wordCount <= minWords) {
-                result += match[0];
-            }
-            else
-            {
-                let char1 = match[1][match[1].length - 1];
-                let char2 = match[2][0];
-                if (/[.?!"]/.test(char1) || char2 == "\n") {
-                    result += match[1];
-                    break;
-                }
-                else {
-                    result += match[0];
-                }
-            }
-        }
-        return result;
+      // Index already present, search directly.
+      search(term);
     }
-}, {once: true});
+    else if (queuedTerm)
+    {
+      // Index is being loaded, replace the term we want to search for.
+      queuedTerm = term;
+    }
+    else
+    {
+      // Start loading index, perform the search when done.
+      queuedTerm = term;
+      initIndex();
+    }
+  }
+
+  function searchDone()
+  {
+    // Stop icon animation.
+    form.removeAttribute("data-running");
+
+    queuedTerm = null;
+  }
+
+  function initIndex()
+  {
+    var request = new XMLHttpRequest();
+    request.open("GET", "/search.json");
+    request.responseType = "json";
+    request.addEventListener("load", function(event)
+    {
+      lookup = {};
+      index = lunr(function()
+      {
+        // Uncomment the following line and replace de by the right language
+        // code to use a lunr language pack.
+
+        // this.use(lunr.de);
+
+        this.ref("uri");
+
+        // If you added more searchable fields to the search index, list them here.
+        this.field("title");
+        this.field("content");
+        this.field("description");
+        this.field("categories");
+
+        for (var doc of request.response)
+        {
+          this.add(doc);
+          lookup[doc.uri] = doc;
+        }
+      });
+
+      // Search index is ready, perform the search now
+      search(queuedTerm);
+    }, false);
+    request.addEventListener("error", searchDone, false);
+    request.send(null);
+  }
+
+  function search(term)
+  {
+    var results = index.search(term);
+
+    // The element where search results should be displayed, adjust as needed.
+    var target = document.querySelector(".main-inner");
+
+    while (target.firstChild)
+      target.removeChild(target.firstChild);
+
+    var title = document.createElement("h1");
+    title.id = "search-results";
+    title.className = "list-title";
+
+    if (results.length == 0)
+      title.textContent = `No results found for “${term}”`;
+    else if (results.length == 1)
+      title.textContent = `Found one result for “${term}”`;
+    else
+      title.textContent = `Found ${results.length} results for “${term}”`;
+    target.appendChild(title);
+    document.title = title.textContent;
+
+    var template = document.getElementById("lunr-search-result");
+    for (var result of results)
+    {
+      var doc = lookup[result.ref];
+
+      // Fill out search result template, adjust as needed.
+      var element = template.content.cloneNode(true);
+      element.querySelector(".summary-title-link").href =
+          element.querySelector(".read-more-link").href = doc.uri;
+      element.querySelector(".summary-title-link").textContent = doc.title;
+      element.querySelector(".summary").textContent = truncate(doc.content, 70);
+      target.appendChild(element);
+    }
+    title.scrollIntoView(true);
+
+    searchDone();
+  }
+
+  // This matches Hugo's own summary logic:
+  // https://github.com/gohugoio/hugo/blob/b5f39d23b8/helpers/content.go#L543
+  function truncate(text, minWords)
+  {
+    var match;
+    var result = "";
+    var wordCount = 0;
+    var regexp = /(\S+)(\s*)/g;
+    while (match = regexp.exec(text))
+    {
+      wordCount++;
+      if (wordCount <= minWords)
+        result += match[0];
+      else
+      {
+        var char1 = match[1][match[1].length - 1];
+        var char2 = match[2][0];
+        if (/[.?!"]/.test(char1) || char2 == "\n")
+        {
+          result += match[1];
+          break;
+        }
+        else
+          result += match[0];
+      }
+    }
+    return result;
+  }
+}, false);
