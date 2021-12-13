@@ -6,7 +6,7 @@
     <input type="search" id="lunr-search-input" class="lunr-search-input">
   </form>
 
-  <template id="search-result" hidden>
+  <template id="lunr-search-result" hidden>
     <article class="content post">
         <h2 class="post-title"><a class="summary-title-link"></a></h2>
         <summary class="summary"></summary>
@@ -14,7 +14,7 @@
             <a class="read-more-link">{{ i18n "readMore" }} »</a>
         </div>
     </article>
-  </template>s
+  </template>
   {{ if gt .Site.Params.sidebar.postAmount 0 }}
     <section id="recent-posts">
       <header>
