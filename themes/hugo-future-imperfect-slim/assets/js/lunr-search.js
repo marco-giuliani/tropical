@@ -140,7 +140,7 @@ window.addEventListener("DOMContentLoaded", event => {
             }
             target.appendChild(title);
             document.title = title.textContent;
-            let template = document.getElementById("search-result");
+            let template = document.getElementById("lunr-search-result");
             for (let result of results) {
                 let doc = lookup[result.ref];
                 let element = template.content.cloneNode(true);
