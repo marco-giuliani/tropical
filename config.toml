@@ -15,8 +15,8 @@ disableLanguages        = []
 
 [outputFormats]
   [SearchIndex]
-    baseName            = search
-    mediaType           = application/json
+    baseName            = "search"
+    mediaType           = "application/json"
 
 [outputs]
   home                  = ["html", "json", "rss", "SearchIndex"]
